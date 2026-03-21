@@ -24,6 +24,9 @@ def PlaneTrussStiffness( input_geometry):
     # load the input data
     [nodes, bars] = LoadData(input_geometry,'aisc_shapes_database_v16_0.csv','Material_Data.csv')
         
+    # Uncomment this for plotting sooner rather than later
+   # Plotting_Trusses.PlotStructureData(nodes, bars, "index")
+
     # determine the degrees of freedom
     [n_unknowns,n_knowns] = EstablishGlobalDOFNum(nodes)
     n_matrix = n_unknowns + n_knowns
@@ -53,20 +56,21 @@ def PlaneTrussStiffness( input_geometry):
     ComputeBucklingLoad(bars)    
     
     # output data for sanity check
-    # for node in nodes:
-    #     node.Print()
-    # for bar in bars:
-    #     bar.Print()
+    for node in nodes:
+        node.Print()
+    #for bar in bars:
+        #bar.Print()
     
     # Uncomment these for plotting
     # Plotting_Trusses.PlotStructureData(nodes, bars, "index")
-    # Plotting_Trusses.PlotStructureData(nodes, bars, "axial")
-    # Plotting_Trusses.PlotStructureData(nodes, bars, "stress")
-    # Plotting_Trusses.PlotStructureData(nodes, bars, "disp_in")
-    # Plotting_Trusses.PlotStructureData(nodes, bars, "buckling")
+    #Plotting_Trusses.PlotStructureData(nodes, bars, "axial")
+    #Plotting_Trusses.PlotStructureData(nodes, bars, "stress")
+    #Plotting_Trusses.PlotStructureData(nodes, bars, "disp_in")
+    Plotting_Trusses.PlotStructureData(nodes, bars, "buckling")
     
     return [nodes,bars]
 
 
 # Run the plane truss function 
-[nodes,bars]=PlaneTrussStiffness('Gabled_Howe_6_Panel.csv')
+# Modify the name of the file to operate on your truss of interest
+[nodes,bars]=PlaneTrussStiffness('Modified_Fan_Six_Panel.csv')

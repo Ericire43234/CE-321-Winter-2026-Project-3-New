@@ -126,7 +126,7 @@ def PlotStructureData(nodes,bars,plot_type):
                  xytext=offset, # distance from text to points (x,y)
                  ha='center', # horizontal alignment can be left, right or center
                  rotation=rotate,
-                 size=xdiff)
+                 size=8)
         for node in nodes:
             label = "n{:d}".format(node.idx)
             offset = (0,7)
@@ -135,7 +135,7 @@ def PlotStructureData(nodes,bars,plot_type):
                  textcoords="offset points", # how to position the text
                  xytext=offset, # distance from text to points (x,y)
                  ha='center',
-                 size=xdiff) # horizontal alignment can be left, right or center
+                 size=8) # horizontal alignment can be left, right or center
 
     elif plot_type=="axial":
         [xdiff,ydiff]=PlotStructure(nodes,bars)
@@ -151,7 +151,7 @@ def PlotStructureData(nodes,bars,plot_type):
                  xytext=offset, # distance from text to points (x,y)
                  ha='center', # horizontal alignment can be left, right or center
                  rotation=rotate,
-                 size=xdiff)
+                 size=8)
             
     elif plot_type=="stress":
         [xdiff,ydiff]=PlotStructure(nodes,bars)
@@ -167,7 +167,7 @@ def PlotStructureData(nodes,bars,plot_type):
                  xytext=offset, # distance from text to points (x,y)
                  ha='center', # horizontal alignment can be left, right or center
                  rotation=rotate,
-                 size=xdiff)
+                 size=8)
 
 
     elif plot_type=="buckling":
@@ -184,7 +184,7 @@ def PlotStructureData(nodes,bars,plot_type):
                  xytext=offset, # distance from text to points (x,y)
                  ha='center', # horizontal alignment can be left, right or center
                  rotation=rotate,
-                 size=xdiff)
+                 size=8)
 
 
     elif "disp" in plot_type:
@@ -205,7 +205,7 @@ def PlotStructureData(nodes,bars,plot_type):
                  textcoords="offset points", # how to position the text
                  xytext=offset, # distance from text to points (x,y)
                  ha='center',
-                 size=xdiff)
+                 size=8)
 
     plt.box(False)
     plt.autoscale(enable=True, axis='y', tight=True)
