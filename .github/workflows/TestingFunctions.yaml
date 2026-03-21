@@ -1,0 +1,50 @@
+name: ci-python-unittest
+
+on:
+  push
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Disable man-db trigger (make mandb a no-op) — idempotent
+        run: |
+          set -euo pipefail
+          if [ ! -f /usr/bin/mandb.distrib ]; then
+            sudo dpkg-divert --local --rename --add /usr/bin/mandb
+            printf '#!/bin/sh\nexit 0\n' | sudo tee /usr/bin/mandb >/dev/null
+            sudo chmod +x /usr/bin/mandb
+          fi
+#      - name: Install dependencies
+#        run: |
+#          sudo apt -y update
+#          sudo apt-get purge -y man-db || true
+#          sudo apt install -y --no-install-recommends \
+#              -o Dpkg::Options::="--path-exclude=/usr/share/man/*" \
+#              python3-numpy python3-scipy python3-matplotlib
+      - name: Install dependencies (stable with apt-get)
+        run: | 
+          set -euo pipefail 
+          export DEBIAN_FRONTEND=noninteractive 
+          sudo apt-get update -y 
+          sudo apt-get install -y --no-install-recommends \
+            -o Dpkg::Options::="--path-exclude=/usr/share/man/*" \
+            -o Dpkg::Options::="--path-exclude=/usr/share/doc/*" \
+            -o Dpkg::Options::="--path-exclude=/usr/share/locale/*" \
+            python3-numpy python3-matplotlib
+      - name: Make grader executable
+        run: chmod +x ./Project_3_Grader
+      - name: Test Solver Software
+        if: ${{ always() }}
+        run: |
+          python3 Solver_Trusses_Testing.py
+      - name: Grade Project 3 Submission
+        if: ${{ always() }}
+        run: |
+          ./Project_3_Grader
