@@ -16,6 +16,7 @@ from Solver_Trusses import PostprocessReactions
 from Solver_Trusses import ComputeMemberForces
 from Solver_Trusses import ComputeNormalStresses
 from Solver_Trusses import ComputeBucklingLoad
+from ExportPNGPlots_Trusses import export_png_plots
 
 import Plotting_Trusses
 
@@ -71,6 +72,8 @@ def PlaneTrussStiffness( input_geometry):
     return [nodes,bars]
 
 
-# Run the plane truss function 
-# Modify the name of the file to operate on your truss of interest
-[nodes,bars]=PlaneTrussStiffness('Modified_Fan_Six_Panel.csv')
+if __name__ == "__main__":
+    # Modify the name of the file to operate on your truss of interest.
+    input_geometry = 'csvs/Modified_Fan_W26_No_Wind_Simply_Supported.csv'
+    [nodes,bars] = PlaneTrussStiffness(input_geometry)
+    export_png_plots(input_geometry)
