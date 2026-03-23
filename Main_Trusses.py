@@ -74,6 +74,6 @@ def PlaneTrussStiffness( input_geometry):
 
 if __name__ == "__main__":
     # Modify the name of the file to operate on your truss of interest.
-    input_geometry = 'csvs/Modified_Fan_W26_No_Wind_Simply_Supported.csv'
+    input_geometry = 'csvs/Modified_Fan_W26_No_Wind_Two_Pins.csv'
     [nodes,bars] = PlaneTrussStiffness(input_geometry)
     export_png_plots(input_geometry)
